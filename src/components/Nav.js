@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import LoginPage from "../pages/LoginPage";
 
 const Nav = () => {
   const [show, setShow] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const navigation = useNavigate();
+
+  const { pathname } = useLocation();
 
   // Mounting updating Unmounting
 
@@ -29,21 +32,51 @@ const Nav = () => {
     setSearchValue(e.target.value);
     navigation(`/search?q=${e.target.value}`);
   };
+
+  const handleAuth = () => {
+    // firebase에서 제공한 방법 사용
+    // google login을 위해서
+  };
   return (
     <NavWrapper $show={show}>
       <Logo>
         <img alt="Disney plus logo" src="/images/logo.svg" />
       </Logo>
-      <Input
-        value={searchValue}
-        onChange={handleChange}
-        className="nav__input"
-        type="text"
-        placeholder="영화름 검색해주세요."
-      />
+
+      {/* URL --> useLocation
+    다이나믹한 부분 ---> useParams 
+  */}
+
+      {pathname === "/" ? (
+        <Login onClick={handleAuth}>Login</Login>
+      ) : (
+        <Input
+          value={searchValue}
+          onChange={handleChange}
+          className="nav__input"
+          type="text"
+          placeholder="영화를 검색해주세요."
+        />
+      )}
     </NavWrapper>
   );
 };
+
+const Login = styled.a`
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  transition: all 0.2s ease 0s;
+
+  &:hover {
+    background: #f9f9f9;
+    color: #000;
+    border-color: transparent;
+  }
+`;
 
 const Input = styled.input`
   position: fixed;

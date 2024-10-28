@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Modal.css";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 const Modal = ({
   backdrop_path,
@@ -11,10 +12,16 @@ const Modal = ({
   vote_average,
   setIsModalOpen,
 }) => {
+  const modalRef = useRef(null);
+  console.log(modalRef);
+  useOnClickOutside(modalRef, () => {
+    setIsModalOpen(false);
+  });
+
   return (
     <div className="presentation" role="presentation">
       <div className="wrapper-modal">
-        <div className="modal">
+        <div className="modal" ref={modalRef}>
           <span
             className="modal-close"
             onClick={() => {

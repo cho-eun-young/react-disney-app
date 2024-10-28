@@ -4,6 +4,8 @@ import Nav from "./components/Nav";
 import MainPage from "./pages/MainPage";
 import DetailPage from "./pages/DetailPage";
 import SearchPage from "./pages/SearchPage";
+import { useState } from "react";
+import TestModal from "./components/TestModal";
 
 const Layout = () => {
   return (
